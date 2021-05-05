@@ -30,6 +30,8 @@ passwordValidator | <sub>`FormFieldValidator<String>`</sub>     | <sub>Same as `
 logoTag |   `String`     | <sub>`Hero` tag for logo image. If not specified, it will simply fade out when changing route</sub>
 titleTag |   `String`     | <sub>`Hero` tag for title text. Need to specify `LoginTheme.beforeHeroFontSize` and `LoginTheme.afterHeroFontSize` if you want different font size before and after hero animation</sub>
 showDebugButtons |   `bool`     | <sub>Display the debug buttons to quickly forward/reverse login animations. In release mode, this will be overrided to `false` regardless of the value passed in</sub>
+hideForgotPasswordButton |   `bool`     | <sub>Hides the Forgot Password button if set to true</sub>
+hideSignUpButton |   `bool`     | <sub>Hides the SignUp button if set to true</sub>
 
 
 
@@ -59,6 +61,8 @@ recoverPasswordDescription | `String` | Description in password recovery form
 goBackButton | `String` | Go back button's label. Go back button is used to go back to to login/signup form from the recover password form
 confirmPasswordError | `String` | The error message to show when the confirm password not match with the original password
 recoverPasswordSuccess | `String` | The success message to show after submitting recover password
+flushbarTitleError | `String` | The Flushbar title on errors
+flushbarTitleSuccess | `String` | The Flushbar title on sucesses
 
 ### LoginTheme
 
@@ -164,7 +168,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.orange,
         cursorColor: Colors.orange,
         textTheme: TextTheme(
-          display2: TextStyle(
+          headline3: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 45.0,
             color: Colors.orange,
@@ -172,8 +176,8 @@ class MyApp extends StatelessWidget {
           button: TextStyle(
             fontFamily: 'OpenSans',
           ),
-          subhead: TextStyle(fontFamily: 'NotoSans'),
-          body1: TextStyle(fontFamily: 'NotoSans'),
+          subtitle1: TextStyle(fontFamily: 'NotoSans'),
+          bodyText2: TextStyle(fontFamily: 'NotoSans'),
         ),
       ),
       home: LoginScreen(),

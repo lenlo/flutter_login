@@ -11,32 +11,32 @@ enum AnimatedTextRotation { up, down }
 
 /// https://medium.com/flutter-community/flutter-challenge-3d-bottom-navigation-bar-48952a5fd996
 class AnimatedText extends StatefulWidget {
-  AnimatedText({
-    Key key,
-    @required this.text,
+  const AnimatedText({
+    Key? key,
+    required this.text,
     this.style,
     this.textRotation = AnimatedTextRotation.up,
   }) : super(key: key);
 
   final String text;
-  final TextStyle style;
+  final TextStyle? style;
   final AnimatedTextRotation textRotation;
 
   @override
-  _AnimatedTextState createState() => _AnimatedTextState();
+  State<AnimatedText> createState() => _AnimatedTextState();
 }
 
 class _AnimatedTextState extends State<AnimatedText>
     with SingleTickerProviderStateMixin {
   var _newText = '';
   var _oldText = '';
-  var _layoutHeight = 0.0;
+  double? _layoutHeight = 0.0;
   final _textKey = GlobalKey();
 
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
 
-  double get radius => _layoutHeight / 2;
+  double get radius => _layoutHeight! / 2;
 
   @override
   void initState() {
@@ -79,8 +79,8 @@ class _AnimatedTextState extends State<AnimatedText>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   Matrix4 get _matrix {

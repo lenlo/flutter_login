@@ -19,6 +19,12 @@ class TermCheckbox extends StatefulWidget {
 class _TermCheckboxState extends State<TermCheckbox> {
   @override
   Widget build(BuildContext context) {
+    final tosStyle = Theme.of(context)
+        .textTheme
+        .bodyText2
+        // XXX: Hack Attack! We prefer the ToS in italic.
+        ?.merge(TextStyle(fontStyle: FontStyle.italic));
+
     return CheckboxFormField(
       onChanged: (value) => widget.termOfService.setStatus(value!),
       initialValue: widget.termOfService.initialValue,
@@ -33,7 +39,7 @@ class _TermCheckboxState extends State<TermCheckbox> {
                   Flexible(
                     child: Text(
                       widget.termOfService.text,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: tosStyle,
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -50,9 +56,7 @@ class _TermCheckboxState extends State<TermCheckbox> {
             )
           : Text(
               widget.termOfService.text,
-              style: Theme.of(context).textTheme.bodyText2
-                // XXX: Hack Attack! We prefer the ToS in italic.
-                ?.merge(TextStyle(fontStyle: FontStyle.italic)),
+              style: tosStyle,
               textAlign: TextAlign.left,
             ),
       validator: (bool? value) {

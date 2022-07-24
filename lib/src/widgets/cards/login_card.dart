@@ -212,8 +212,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
         _switchAuthMode();
         return false;
       } else if (!widget.loginAfterSignUp) {
-        showSuccessToast(
-            context, messages.flushbarTitleSuccess, messages.signUpSuccess);
+        if (messages.signUpSuccess != null)
+          showSuccessToast(
+              context, messages.flushbarTitleSuccess, messages.signUpSuccess);
         _switchAuthMode();
         setState(() => _isSubmitting = false);
         return false;

@@ -337,11 +337,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
           FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
         }
       },
-      // XXX: There is no point in validating passwords on login, that happens
-      // automatically anyways as part of the authentication process. Besides,
-      // the user might have an old password that doesn't conform to the current
-      // requirements, but still need to be able to log in.
-      validator: auth.isLogin ? null : widget.passwordValidator,
+      validator: widget.passwordValidator,
       onSaved: (value) => auth.password = value!,
       enabled: !_isSubmitting,
     );

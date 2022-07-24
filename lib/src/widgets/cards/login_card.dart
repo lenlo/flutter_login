@@ -621,7 +621,8 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             alignment: Alignment.topLeft,
             color: theme.cardTheme.color,
             width: cardWidth,
-            padding: const EdgeInsets.symmetric(horizontal: cardPadding),
+            // padding: const EdgeInsets.symmetric(horizontal: cardPadding),
+            padding: const EdgeInsets.only(right: cardPadding / 2),
             onExpandCompleted: () => _postSwitchAuthController.forward(),
             child: Column(children: [
               Padding(

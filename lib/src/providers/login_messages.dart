@@ -131,7 +131,7 @@ class LoginMessages with ChangeNotifier {
   final String flushbarTitleSuccess;
 
   /// The success message to show after signing up
-  final String signUpSuccess;
+  final String? signUpSuccess;
 
   /// The string shown above the Providers buttons
   final String providersTitleFirst;

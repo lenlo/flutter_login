@@ -23,7 +23,7 @@ class _TermCheckboxState extends State<TermCheckbox> {
         .textTheme
         .bodyText2
         // XXX: Hack Attack! We prefer the ToS in italic.
-        ?.merge(TextStyle(fontStyle: FontStyle.italic));
+        ?.merge(const TextStyle(fontStyle: FontStyle.italic));
 
     return CheckboxFormField(
       onChanged: (value) => widget.termOfService.setStatus(value!),

@@ -50,7 +50,9 @@ class _TermCheckboxState extends State<TermCheckbox> {
             )
           : Text(
               widget.termOfService.text,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText2
+                // XXX: Hack Attack! We prefer the ToS in italic.
+                ?.merge(TextStyle(fontStyle: FontStyle.italic)),
               textAlign: TextAlign.left,
             ),
       validator: (bool? value) {

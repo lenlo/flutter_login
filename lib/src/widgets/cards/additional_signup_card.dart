@@ -145,7 +145,7 @@ class _AdditionalSignUpCardState extends State<_AdditionalSignUpCard>
     } else {
       if (messages.signUpSuccess != null) {
         showSuccessToast(context, messages.flushbarTitleSuccess,
-            messages.signUpSuccess, const Duration(seconds: 4));
+            messages.signUpSuccess!, const Duration(seconds: 4));
       }
       setState(() => _isSubmitting = false);
       // await _loadingController.reverse();

@@ -340,7 +340,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       // automatically anyways as part of the authentication process. Besides,
       // the user might have an old password that doesn't conform to the current
       // requirements, but still need to be able to log in.
-      //validator: widget.passwordValidator,
+      validator: auth.isLogin ? null : widget.passwordValidator,
       onSaved: (value) => auth.password = value!,
       enabled: !_isSubmitting,
     );

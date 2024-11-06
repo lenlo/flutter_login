@@ -36,6 +36,7 @@ class LoginMessages with ChangeNotifier {
     this.setPasswordButton = defaultSetPasswordButton,
     this.confirmRecoverSuccess = defaultConfirmRecoverSuccess,
     this.recoverCodePasswordDescription = defaultRecoverCodePasswordDescription,
+    this.cancelButton = defaultCancelButton,
   });
 
   static const defaultPasswordHint = 'Password';
@@ -77,6 +78,7 @@ class LoginMessages with ChangeNotifier {
   static const defaultResendCodeSuccess = 'A new email has been sent.';
   static const defaultConfirmSignupButton = 'CONFIRM';
   static const defaultConfirmSignupSuccess = 'Account confirmed.';
+  static const defaultCancelButton = 'Cancel';
 
   /// Hint text of the userHint [TextField]
   /// Default will be selected based on userType
@@ -131,7 +133,7 @@ class LoginMessages with ChangeNotifier {
   final String flushbarTitleSuccess;
 
   /// The success message to show after signing up
-  final String? signUpSuccess;
+  final String signUpSuccess;
 
   /// The string shown above the Providers buttons
   final String providersTitleFirst;
@@ -178,4 +180,7 @@ class LoginMessages with ChangeNotifier {
   /// Description in password recovery form, shown when the onConfirmRecover
   /// callback is provided
   final String recoverCodePasswordDescription;
+
+  /// Cancel button's label
+  final String cancelButton;
 }

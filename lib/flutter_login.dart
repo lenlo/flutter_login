@@ -314,6 +314,7 @@ class FlutterLogin extends StatefulWidget {
     this.onSwitchToAdditionalFields,
     this.initialIsoCode,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    this.hideCancelButton = true,
   })  : assert((logo is String?) || (logo is ImageProvider?)),
         logo = logo is String ? AssetImage(logo) : logo as ImageProvider?;
 
@@ -461,6 +462,9 @@ class FlutterLogin extends StatefulWidget {
   final String? initialIsoCode;
 
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+
+  /// Set to true to hide the Cancel button
+  final bool hideCancelButton;
 
   static String? defaultEmailValidator(String? value) {
     if (value == null || value.isEmpty || !email.hasMatch(value)) {
@@ -843,6 +847,7 @@ class _FlutterLoginState extends State<FlutterLogin>
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
                         hideSignUpButton: widget.onSignup == null,
+                        hideCancelButton: widget.hideCancelButton,
                         hideForgotPasswordButton:
                             widget.hideForgotPasswordButton,
                         loginAfterSignUp: widget.loginAfterSignUp,

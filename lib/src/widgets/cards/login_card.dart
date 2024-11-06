@@ -19,6 +19,7 @@ class _LoginCard extends StatefulWidget {
     this.onSubmitCompleted,
     this.hideForgotPasswordButton = false,
     this.hideSignUpButton = false,
+    this.hideCancelButton = true,
     this.loginAfterSignUp = true,
     this.hideProvidersTitle = false,
     this.introWidget,
@@ -35,6 +36,7 @@ class _LoginCard extends StatefulWidget {
   final VoidCallback? onSubmitCompleted;
   final bool hideForgotPasswordButton;
   final bool hideSignUpButton;
+  final bool hideCancelButton;
   final bool loginAfterSignUp;
   final bool hideProvidersTitle;
   final LoginUserType userType;
@@ -166,13 +168,13 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     }
   }
 
-  Future<bool> _submit() async {
+  Future<bool> _submit([bool cancel = false]) async {
     FocusScope.of(context).unfocus();
 
     final messages = Provider.of<LoginMessages>(context, listen: false);
     final auth = Provider.of<Auth>(context, listen: false);
 
-    if (!_formKey.currentState!.validate()) {
+    if (!cancel && !_formKey.currentState!.validate()) {
       return false;
     }
 
@@ -184,6 +186,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
 
     auth.authType = AuthType.userPassword;
 
+    if (!cancel) {
     if (auth.isLogin) {
       error = await auth.onLogin?.call(
         LoginData(
@@ -211,6 +214,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
           );
         }
       }
+    }
     }
 
     // workaround to run after _cardSizeAnimation in parent finished
@@ -266,6 +270,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       }
     }
     TextInput.finishAutofillContext();
+    if (!cancel)
     widget.onSubmitCompleted?.call();
 
     return true;
@@ -490,6 +495,53 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
         controller: _submitController,
         text: auth.isLogin ? messages.loginButton : messages.signupButton,
         onPressed: () => _submit(),
+      ),
+    );
+  }
+
+/*
+  Widget _buildCancelButton(
+    ThemeData theme,
+    LoginMessages messages,
+    Auth auth,
+  ) {
+    return ScaleTransition(
+      scale: _buttonScaleAnimation,
+      child: AnimatedButton(
+        controller: _submitController,
+        text: messages.cancelButton,
+        onPressed: () => _submit(true),
+      ),
+    );
+  }
+*/
+
+  Widget _buildCancelButton(
+    ThemeData theme,
+    LoginMessages messages,
+    Auth auth,
+    LoginTheme loginTheme,
+  ) {
+    final calculatedTextColor =
+        (theme.cardTheme.color!.computeLuminance() < 0.5)
+            ? Colors.white
+            : theme.primaryColor;
+    return FadeIn(
+      controller: widget.loadingController,
+      offset: .5,
+      curve: _textButtonLoadingAnimationInterval,
+      fadeDirection: FadeDirection.topToBottom,
+      child: MaterialButton(
+        disabledTextColor: theme.primaryColor,
+        onPressed: () => _submit(true),
+        padding: loginTheme.authButtonPadding ??
+            const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        textColor: loginTheme.switchAuthTextColor ?? calculatedTextColor,
+        child: AnimatedText(
+          text: messages.cancelButton,
+          textRotation: AnimatedTextRotation.down,
+        ),
       ),
     );
   }
@@ -773,6 +825,8 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                   SizedBox.fromSize(
                     size: const Size.fromHeight(10),
                   ),
+                if (!widget.hideCancelButton)
+                  _buildCancelButton(theme, messages, auth, loginTheme),
                 if (auth.loginProviders.isNotEmpty &&
                     !widget.hideProvidersTitle)
                   _buildProvidersTitleFirst(messages)

@@ -43,6 +43,7 @@ class AuthCard extends StatefulWidget {
     this.onSubmitCompleted,
     this.hideForgotPasswordButton = false,
     this.hideSignUpButton = false,
+    this.hideCancelButton = true,
     this.loginAfterSignUp = true,
     this.hideProvidersTitle = false,
     this.additionalSignUpFields,
@@ -65,6 +66,7 @@ class AuthCard extends StatefulWidget {
   final VoidCallback? onSubmitCompleted;
   final bool hideForgotPasswordButton;
   final bool hideSignUpButton;
+  final bool hideCancelButton;
   final bool loginAfterSignUp;
   final LoginUserType userType;
   final bool hideProvidersTitle;
@@ -376,6 +378,7 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
             requireSignUpConfirmation: requireSignUpConfirmation,
             onSwitchConfirmSignup: () => _changeCard(_confirmSignup),
             hideSignUpButton: widget.hideSignUpButton,
+            hideCancelButton: widget.hideCancelButton,
             hideForgotPasswordButton: widget.hideForgotPasswordButton,
             loginAfterSignUp: widget.loginAfterSignUp,
             hideProvidersTitle: widget.hideProvidersTitle,
